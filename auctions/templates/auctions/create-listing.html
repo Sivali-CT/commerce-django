@@ -1,0 +1,107 @@
+{% extends "auctions/layout.html" %}
+
+
+{% block body %}
+<main  class="mx-auto max-w-2xl py-8 px-4 sm:py-16 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div>
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900">Create Listings</h1>
+    </div>
+    <div class="mt-6">
+        <form method="post" class=" grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            {% csrf_token %}
+            <div class="sm:col-span-4">
+                {{ form.title.label_tag }}
+            <div class="flex ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md mt-2">
+                {{ form.title }}
+            </div>
+            <div class="sm:col-span-4 mt-8">
+                {{ form.description.label_tag }}
+            </div>
+            <div class="flex ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-6xl mt-2">
+                {{ form.description }}
+            </div>
+            <div class="flex items-center justify-between">
+                <div>
+                    <div class="sm:col-span-4 mt-8">
+                        {{ form.start_price.label_tag }}
+                    </div>
+                    <div class="flex ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-xl mt-2">
+                        {{ form.start_price }}
+                    </div>
+                </div>
+                <div>
+                    <div class="sm:col-span-4 mt-8">
+                        {{ form.current_price.label_tag }}
+                    </div>
+                    <div class="flex ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-xl mt-2">
+                        {{ form.current_price }}
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center justify-between">
+                <div>
+                    <div class="sm:col-span-4 mt-8">
+                        {{ form.start_time.label_tag }}
+                    </div>
+                    <div class="flex ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-xl mt-2">
+                        {{ form.start_time }}
+                    </div>
+                </div>
+                <div>
+                    <div class="sm:col-span-4 mt-8">
+                        {{ form.end_time.label_tag }}
+                    </div>
+                    <div class="flex ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-xl mt-2">
+                        {{ form.end_time }}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="sm:col-span-4 mt-8">
+                    {{ form.status.label_tag }}
+                </div>
+                <div class="mt-2">
+                    {{ form.status }}
+                </div>
+            </div>
+            <div class="flex items-center justify-between">
+                <div>
+                    <div class="sm:col-span-4 mt-8">
+                        {{ form.parent_category.label_tag }}
+                    </div>
+                    <div class="mt-2">
+                        {{ form.parent_category }}
+                    </div>
+                </div>
+                <div>
+                    <div class="sm:col-span-4 mt-8">
+                        {{ form.child_category.label_tag }}
+                    </div>
+                    <div class="mt-2">
+                        {{ form.child_category }}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="sm:col-span-4 mt-8">
+                    {{ form.shipping.label_tag }}
+                <div class="flex ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md mt-2">
+                    {{ form.shipping }}
+                </div>
+            </div>
+            <div>
+                <div class="sm:col-span-4 mt-8">
+                    {{ form.image_url.label_tag }}
+                <div class="flex ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md mt-2">
+                    {{ form.image_url }}
+                </div>
+            </div>
+            <div class="mt-6">
+                <input type="submit" value="Create Listing" class="bg-blue-900 text-white px-2 py-1 rounded">
+            </div>
+
+        </form>
+    </div>
+</main>
+
+{% endblock %}

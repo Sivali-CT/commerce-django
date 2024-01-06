@@ -1,0 +1,18 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="bg-white h-screen">
+    <div class="py-16 sm:py-24 xl:mx-auto xl:max-w-7xl xl:px-8">
+        <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
+            <h1 class="text-2xl font-bold tracking-tight text-gray-900">Shop by Category</h1>
+        </div>
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-4 gap-4">
+            {% for category in categories %}
+            <div class="text-base bg-blue-200 p-4 text-center font-semibold">
+                <a href="{% url 'category-detail' category.slug %}">{{ category.name|title }}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

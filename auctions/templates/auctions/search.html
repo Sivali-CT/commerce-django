@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<main class="h-screen">
+    <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div>
+            <h1 class="text-2xl font-bold tracking-tight text-gray-900">Search results for: {{ query }}</h1>
+        </div>
+        <ul class="mt-8">
+            {% for listing in listings %}
+            <li class="my-2">
+                <a href="{% url 'single-listing' listing.category.parent_category.slug listing.category.slug listing.listing_id %}" class="text-blue-700 hover:text-blue-900">
+                {{ listing.title }}
+                </a>
+            </li>
+            {% empty %}
+            <p>No results found.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</main>
+{% endblock %}

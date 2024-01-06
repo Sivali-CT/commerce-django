@@ -1,0 +1,49 @@
+{% extends "auctions/layout.html" %}
+
+
+{% block body %}
+<main>
+    <div>
+        <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+            <div class="flex items-center justify-between space-x-4">
+                <h1 class="text-2xl font-bold tracking-tight text-gray-900">Your Watchlist</h1>
+            </div>
+            <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-1 sm:gap-y-12 lg:grid-cols-4">
+            {% for listing in watchlist_items %}
+            <div class="relative border border-solid border-gray-200">
+                <div class="aspect-w-6 aspect-h-6 overflow-hidden bg-gray-100">
+                    <img src="{{ listing.image_url }}" alt="{{ listing.title }}" class="object-cover object-center w-full h-full">
+                </div>
+                <div class="mt-4 flex items-center justify-between space-x-8 text-base font-medium text-gray-900 px-4">
+                    <h3>
+                        <a href="{% url 'single-listing' parent_category_slug=listing.category.parent_category.slug child_category_slug=listing.category.slug listing_id=listing.listing_id %}">
+                            {{listing.title}}
+                        </a>
+                    </h3>
+                    <p>USD {{listing.current_price}}</p>
+                </div>
+                <!-- <p class="text-sm mt-1 text-gray-600">{{listing.description}}</p> -->
+                <div class="flex items-center justify-between mt-2">
+                    <p class="text-sm text-gray-500 px-4 pb-2">
+                        <a href="{% url 'category-detail' category_slug=listing.category.parent_category.slug %}">
+                            {{ listing.category.parent_category|title }}
+                        </a>
+                    </p>
+                    <div class="text-sm px-4 pb-2">
+                        <a href="{% url 'remove-from-watchlist' listing_id=listing.listing_id %}" >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-900 mt-2">Your watchlist is empty.</p>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

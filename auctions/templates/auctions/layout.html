@@ -1,0 +1,99 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}.BidHubzz{% endblock %}</title>
+        <link href="{% static 'auctions/dist/output.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <header class="bg-white shadow">
+            <div class="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8">
+                <div class="relative flex h-16 justify-between">
+                    <div class="relative z-10 flex px-2 lg:px-0">
+                        <div class="flex flex-shrink-0 items-center">
+                            <a href="/" class="text-2xl font-bold text-blue-900">.BidHubzz</a>
+                        </div>
+                    </div>
+                    <div class="relative z-0 flex flex-1 items-center justify-center px-2 sm:absolute sm:inset-0">
+                        <form action="{% url 'search' %}" method="GET" class="w-full sm:max-w-xs">
+                            <label for="search" class="sr-only">Search</label>
+                            <div class="relative">
+                                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <input name="q" value="{{ query }}" class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-indigo-500 focus:text-gray-900 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" placeholder="Search" type="text">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="relative z-10 flex items-center lg:hidden">
+                        <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                            <span class="sr-only">Open menu</span>
+                            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="lg:relative lg:z-10 lg:flex lg:items-center lg:space-x-4 hidden">
+                    {% if user.is_authenticated %}
+                        <span class="text-gray-800 font-medium px-2 py-1 rounded"> Signed in as <strong>{{ user.username }}</strong>.</span>
+                        <a class="bg-blue-900 text-white px-2 py-1 rounded" href="{% url 'logout' %}">Log Out</a>
+                    {% else %}
+                        <a class="bg-blue-900 text-white px-2 py-1 rounded" href="{% url 'login' %}">Log In</a>
+                        <a class="bg-blue-900 text-white px-2 py-1 rounded" href="{% url 'register' %}">Register</a>
+                    {% endif %}
+                    </div>
+                </div>
+                <nav class="hidden lg:flex lg:space-x-8 lg:py-2" aria-label="Global">
+                    <a href="{% url 'index' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Active Listings</a>
+                    <a href="{% url 'category-list' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Categories</a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'watchlist' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Watchlist</a>
+                    <a href="{% url 'create-listing' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Create Listing</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Watchlist</a>
+                    <a href="{% url 'login' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Create Listing</a>
+                    {% endif %}
+                </nav>
+                <!--  navigation menu for mobile -->
+                <nav id="mobile-menu" class="lg:hidden hidden">
+                    <a href="{% url 'index' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Active Listings</a>
+                    <a href="{% url 'category-list' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Categories</a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'watchlist' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Watchlist</a>
+                    <a href="{% url 'create-listing' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Create Listing</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Watchlist</a>
+                    <a href="{% url 'login' %}" class="hover:bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium" aria-current="page">Create Listing</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </header>
+        {% block body %}
+        {% endblock %}
+        <footer class="bg-gray-900">
+            <div class="mx-auto max-w-7xl overflow-hidden py-20 px-6 sm:py-12 lg:px-8">
+                <nav class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
+                    <div class="pb-6">
+                        <a href="#" class="text-sm leading-6 text-gray-50 hover:text-blue-500">Faq</a>
+                    </div>
+                </nav>
+                <p class="mt-10 text-center text-xs leading-5 text-gray-50">&copy; 2023 Andini Anissa. Prototype.</p>
+            </div>
+        </footer>
+
+        <script>
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            })
+        </script>
+    </body>
+</html>
